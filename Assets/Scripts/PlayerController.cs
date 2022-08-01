@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -44,17 +45,18 @@ public class PlayerController : MonoBehaviour
        
     // Update is called once per frame
     void Update()
-    {        
-        //Character Rotation
-        if (Input.GetMouseButton(0))
+    {
+        if (!SceneController.Instance.isLocked)
         {
-            CharacterRotation();
+            //Character Rotation
+            if (Input.GetMouseButton(0))
+            {
+                CharacterRotation();
+            }
+
+            //Character Movement
+            CharacterMove();
         }
-
-        //Character Movement
-        CharacterMove();
-
-    
     }
 
     public void CharacterMove()
@@ -63,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && _playerVelocity.y < 0)
         {
-            //Debug.Log("isGrounded true");
             _playerVelocity.y = -2f;
         }
 
